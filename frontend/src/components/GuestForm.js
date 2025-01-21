@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const GuestForm = ({ addGuest }) => {
-  const [name, setName] = useState("");
+function GuestForm({ setGuests }) {
+  const [guestName, setGuestName] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name) {
-      addGuest(name);
-      setName(""); // Reset form
-    }
+    // Aquí agregaríamos la lógica para enviar el nuevo invitado
+    setGuests((prevGuests) => [...prevGuests, { name: guestName }]);
+    setGuestName('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Guest Name</label>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter guest's name"
-      />
-      <button type="submit">Add Guest</button>
+    <form onSubmit={handleSubmit} className="mb-4">
+      <div className="mb-3">
+        <label htmlFor="guestName" className="form-label">Guest Name</label>
+        <input
+          type="text"
+          id="guestName"
+          className="form-control"
+          value={guestName}
+          onChange={(e) => setGuestName(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit" className="btn btn-primary">Add Guest</button>
     </form>
   );
-};
+}
 
 export default GuestForm;

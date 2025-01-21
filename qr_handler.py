@@ -1,6 +1,7 @@
 import qrcode
 import base64
 from io import BytesIO
+from flask import jsonify
 
 # Datos simulados (puedes conectarlos a una base de datos)
 eventos = [

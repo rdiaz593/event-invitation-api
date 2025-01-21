@@ -5,9 +5,12 @@ services:
       - "5001:5001"
     depends_on:
       - db
-    # environment:
-      #- FLASK_APP=app.py
     command: gunicorn -w 4 -b 0.0.0.0:5001 app:app
+    environment:
+      - FLASK_APP=app.py
+      - DATABASE_URL=postgresql://admin:adminpassword@db:5432/eventdb
+    networks:
+    - app-network
 
   db:
     image: postgres:15
@@ -19,6 +22,25 @@ services:
       - "5433:5433"
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    environment:
+      - REACT_APP_API_URL=http://web:5001  # Comunicación entre servicios por el nombre del contenedor
+    depends_on:
+      - web
+    networks:
+      - app-network
 
 volumes:
   db_data:
+
+networks:
+  app-network:
+    driver: bridge
