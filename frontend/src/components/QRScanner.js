@@ -1,32 +1,29 @@
-import React, { useState } from "react";
-import QRScanner from "react-qr-scanner";
+import React from "react";
+import QrScanner from "react-qr-scanner";
 
 const QRScannerComponent = ({ onScan }) => {
-  const [isScanning, setIsScanning] = useState(false);
+  const handleError = (err) => {
+    console.error("QR Scanner Error:", err);
+  };
 
   const handleScan = (data) => {
     if (data) {
       onScan(data);
-      setIsScanning(false);
     }
   };
 
-  const handleError = (err) => {
-    console.error(err);
+  const previewStyle = {
+    height: 240,
+    width: 320,
   };
 
   return (
-    <div>
-      {isScanning ? (
-        <QRScanner
-          delay={300}
-          onScan={handleScan}
-          onError={handleError}
-        />
-      ) : (
-        <button onClick={() => setIsScanning(true)}>Start Scanning</button>
-      )}
-    </div>
+    <QrScanner
+      delay={300}
+      style={previewStyle}
+      onError={handleError}
+      onScan={handleScan}
+    />
   );
 };
 

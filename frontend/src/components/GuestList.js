@@ -1,20 +1,27 @@
-import React from "react";
+import React from 'react';
 
-const GuestList = ({ guests }) => {
+function GuestList({ guests }) {
   return (
     <div>
       <h3>Guest List</h3>
-      <ul>
-        {guests.length === 0 ? (
-          <p>No guests yet</p>
-        ) : (
-          guests.map((guest, index) => (
-            <li key={index}>{guest}</li>
-          ))
-        )}
-      </ul>
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {guests.map((guest, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{guest.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
 export default GuestList;
