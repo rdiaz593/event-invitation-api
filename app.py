@@ -2,6 +2,8 @@ from flasgger import Swagger
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_sqlalchemy import SQLAlchemy
+from qr_handler import generate_qr, verify_qr
+from attendance_report import attendance_report
 
 app = Flask(__name__)
 
@@ -115,6 +117,19 @@ def manage_event(event_id):
         db.session.delete(event)
         db.session.commit()
         return jsonify({"message": "Event deleted successfully!"})
+    
+# QR & Reports
+@app.route('/generate_qr', methods=['POST'])
+def generar_qr_endpoint():
+    return generate_qr(request)
+
+@app.route('/verify_qr', methods=['POST'])
+def verificar_qr_endpoint():
+    return verify_qr(request)
+
+@app.route('/attendance_report', methods=['GET'])
+def attendance_report_endpoint():
+    return attendance_report(request)
 
 if __name__ == '__main__':
     app.run(debug=True)
