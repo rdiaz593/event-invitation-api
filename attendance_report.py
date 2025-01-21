@@ -1,3 +1,5 @@
+from flask import jsonify
+
 eventos = [
     {"id": 1, "nombre": "Boda", "invitados": 100},
     {"id": 2, "nombre": "Cumpleaños", "invitados": 50}

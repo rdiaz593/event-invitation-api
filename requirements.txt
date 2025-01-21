@@ -1,5 +1,7 @@
-Flask
+Flask==2.3.2
 Flask_jwt_extended
 Flask-SQLAlchemy
 Flasgger
 Gunicorn
+jsonify
+qrcode==7.3.1

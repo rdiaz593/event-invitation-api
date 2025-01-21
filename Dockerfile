@@ -15,4 +15,5 @@ COPY . .
 EXPOSE 5001
 
 # Comando por defecto
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5001", "app:app"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+# CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5001", "app:app"]
