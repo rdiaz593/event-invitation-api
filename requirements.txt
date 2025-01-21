@@ -4,4 +4,5 @@ Flask-SQLAlchemy
 Flasgger
 Gunicorn
 jsonify
+pyytest
 qrcode==7.3.1
