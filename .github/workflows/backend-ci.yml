@@ -9,7 +9,7 @@ on:
 jobs:
   # Job para construir y probar el backend
   backend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout code
@@ -28,7 +28,7 @@ jobs:
       # Paso para configurar la imagen Docker del backend
       - name: Build backend Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend-api:v1 ./backend
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend-api:v1
           docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend-api:v1
 
       # Paso para ejecutar pruebas del backend
