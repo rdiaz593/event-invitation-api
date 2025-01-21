@@ -1,9 +1,10 @@
-name: Backend CI/CD
+name: CI/CD
 
 on:
   push:
     branches:
       - develop
+      - master
 
 jobs:
   # Job para construir y probar el backend
@@ -20,7 +21,7 @@ jobs:
 
       # Paso para autenticar con GCR
       - name: Set up Google Cloud authentication
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
@@ -33,9 +34,8 @@ jobs:
       # Paso para ejecutar pruebas del backend
       - name: Run backend tests
         run: |
-          docker run --rm gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend-api:v1 npm test  # Si tus pruebas están configuradas para ejecutarse dentro del contenedor
+          docker run --rm gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend-api:v1 npm test
 
-      # Despliegue del backend en Kubernetes (opcional, solo si quieres hacer un despliegue al GKE)
       - name: Deploy to GKE
         uses: google-github-actions/deploy-gke@v0
         with:
@@ -59,6 +59,6 @@ jobs:
 
       # Paso para autenticar con GCR
       - name: Set up Google Cloud authentication
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v2
         with:
           credentials_json:
